@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  web:
+    volumes:
+      - "${SKIN_VECTOR_PATH}:/var/www/mediawiki/skins/Vector"
+      - "${EXT_WIKIBASE_PATH}:/var/www/mediawiki/extensions/Wikibase"
+      - "${EXT_WIKIBASELEXEME_PATH}:/var/www/mediawiki/extensions/WikibaseLexeme"
+
+  phpmyadmin:
+    image: hello-world
+
+  graphite-statsd:
+    image: hello-world

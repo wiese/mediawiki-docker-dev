@@ -74,7 +74,8 @@ $wgUploadPath = "{$wgScriptPath}/images/docker/{$dockerDb}";
 
 $wgTmpDirectory = "{$wgUploadDirectory}/tmp";
 
-$wgStatsdServer = "graphite-statsd";
+//$wgStatsdServer = "graphite-statsd";
+$wgStatsdServer = null;
 
 ## Dev & Debug
 
@@ -144,6 +145,23 @@ $wgGroupPermissions['sysop']['editcontentmodel'] = true;
 
 $wgRCWatchCategoryMembership = true;
 
+//$wgResourceLoaderDebug = true;
+$wgEnableParserCache = false;
+$wgCachePages = false;
+
+## for Lexeme
+
+wfLoadSkin( 'Vector' );
+
+$wgEnableWikibaseRepo = true;
+$wgEnableWikibaseClient = false;
+require_once "$IP/extensions/Wikibase/repo/Wikibase.php";
+require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+
+wfLoadExtension( 'WikibaseLexeme');
+
+return;
+
 ## added for AdvancedSearch (not cleared as general purpose, yet)
 
 if ( isMounted( 'skins/Vector' ) ) {
@@ -169,6 +187,13 @@ if ( isMounted( 'extensions/CirrusSearch' ) ) {
 
 if ( isMounted( 'extensions/AdvancedSearch' ) ) {
 	wfLoadExtension( 'AdvancedSearch' );
+/*
+	$wgAdvancedSearchNamespacePresets = [
+		'generalHelp' => [
+			'enabled' => false
+		]
+	];
+*/
 }
 
 if ( isMounted( 'extensions/EventLogging' ) ) {
@@ -181,7 +206,7 @@ if ( isMounted( 'extensions/EventLogging' ) ) {
  * Check if a filled folder is located at the given place (relative to MW_INSTALL_PATH)
  *
  * @tutorial Useful to detect dependencies that optionally get added as mounted folder
- *
+ * @tutorial There is $wgExtensionDirectory & $wgStyleDirectory
  * @param string $dir
  * @return bool
  */
